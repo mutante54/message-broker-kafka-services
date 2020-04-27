@@ -11,4 +11,4 @@ Módulo Spring Boot Kafka Client para processamento de mensagens no Kafka. Respo
 
 ## core-message-sender-example
 
-Módulo Spring Boot Core Message Sender para o processamento e envio de mensagens para um componente final. Este componente pode ser um client SMTP ou até mesmo outra API. Tem o papel de validar e consolidar todas as mensagens, garantindo seu destino e atualizando o status na base. Possui camada de persistência em base Oracle. Pode ser implantado via Docker.
+Módulo Spring Boot Core Message Sender para o processamento e envio de mensagens para um componente final, podendo este ser um client SMTP ou até mesmo outra API. As mensagens são consumidas via API REST. Tem o papel de validar e consolidar todas as mensagens recebidas, garantindo seu destino e atualizando o status na base. Possui camada de persistência em base Oracle. Pode ser implantado via Docker.
