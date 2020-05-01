@@ -16,7 +16,6 @@ import org.apache.commons.mail.HtmlEmail;
 import br.example.sender.core.smtp.ISMTPSender;
 import br.example.sender.core.smtp.SMTPSendMessageException;
 import br.example.sender.core.smtp.enums.SMTPParamType;
-import br.example.sender.core.vo.MessageVO;
 
 /**
  * Responsável por configurar e enviar um e-mail para um host SMTP
@@ -36,7 +35,7 @@ public class SMTPEmailSender implements ISMTPSender {
 	}
 
 	@Override
-	public String send(MessageVO p) throws SMTPSendMessageException {
+	public String send() throws SMTPSendMessageException {
 		try {
 			return this.htEmail.send();
 		} catch (EmailException e) {
@@ -45,7 +44,7 @@ public class SMTPEmailSender implements ISMTPSender {
 	}
 
 	@Override
-	public void configure(Map<SMTPParamType, String> params, String content) throws SMTPSendMessageException {
+	public SMTPEmailSender build(Map<SMTPParamType, String> params, String content) throws SMTPSendMessageException {
 
 		try {
 
@@ -76,6 +75,8 @@ public class SMTPEmailSender implements ISMTPSender {
 			if (StringUtils.isNotEmpty(addressReplyTo)) {
 				this.htEmail.setAuthentication(user, params.get(SMTPParamType.PASSWORD));
 			}
+
+			return this;
 
 		} catch (Exception e) {
 			throw new SMTPSendMessageException("Erro ao configurar e-mail para envio", e);

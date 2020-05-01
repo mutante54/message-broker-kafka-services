@@ -24,9 +24,10 @@ public interface ISMTPSender extends ISender<MessageVO, String> {
 	 * 
 	 * @param params  {@link HashMap} com os parâmetros do e-mail (chave-valor)
 	 * @param content Conteúdo do e-mail (html)
-	 * 
+	 * @return a própria instância de {@link ISMTPSender} já configurada e pronta
+	 *         para envio
 	 * @throws SMTPSendMessageException
 	 */
-	void configure(Map<SMTPParamType, String> params, String content) throws SMTPSendMessageException;
+	ISMTPSender build(Map<SMTPParamType, String> params, String content) throws SMTPSendMessageException;
 
 }
