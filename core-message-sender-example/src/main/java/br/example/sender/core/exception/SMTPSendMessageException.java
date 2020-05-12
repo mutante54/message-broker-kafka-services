@@ -1,9 +1,7 @@
 /**
  * 
  */
-package br.example.sender.core.smtp;
-
-import br.example.sender.core.exception.SendMessageException;
+package br.example.sender.core.exception;
 
 /**
  * @author G0055135

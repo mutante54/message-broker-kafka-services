@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.example.sender.core.smtp.impl;
+package br.example.sender.core.text.impl;
 
 import java.util.HashMap;
 

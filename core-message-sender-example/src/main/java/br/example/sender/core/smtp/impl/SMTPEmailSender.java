@@ -4,8 +4,8 @@
 package br.example.sender.core.smtp.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.mail.internet.InternetAddress;
 
@@ -13,8 +13,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
+import br.example.sender.core.ISender;
+import br.example.sender.core.exception.SMTPSendMessageException;
+import br.example.sender.core.exception.SendMessageException;
 import br.example.sender.core.smtp.ISMTPSender;
-import br.example.sender.core.smtp.SMTPSendMessageException;
 import br.example.sender.core.smtp.enums.SMTPParamType;
 
 /**
@@ -44,22 +46,22 @@ public class SMTPEmailSender implements ISMTPSender {
 	}
 
 	@Override
-	public SMTPEmailSender build(Map<SMTPParamType, String> params, String content) throws SMTPSendMessageException {
+	public ISender<?, ?> build(HashMap<Enum<?>, Object> params, String content) throws SendMessageException {
 
 		try {
 
-			this.htEmail.setCharset(params.get(SMTPParamType.CHARSET));
-			this.htEmail.setHostName(params.get(SMTPParamType.HOST));
-			this.htEmail.setSmtpPort(Integer.parseInt(params.get(SMTPParamType.SMTP_PORT)));
+			this.htEmail.setCharset((String) params.get(SMTPParamType.CHARSET));
+			this.htEmail.setHostName((String) params.get(SMTPParamType.HOST));
+			this.htEmail.setSmtpPort(Integer.parseInt((String) params.get(SMTPParamType.SMTP_PORT)));
 
-			this.htEmail.setFrom(params.get(SMTPParamType.FROM));
-			this.htEmail.addTo(params.get(SMTPParamType.TO));
-			this.htEmail.setSubject(params.get(SMTPParamType.SUBJECT));
+			this.htEmail.setFrom((String) params.get(SMTPParamType.FROM));
+			this.htEmail.addTo((String) params.get(SMTPParamType.TO));
+			this.htEmail.setSubject((String) params.get(SMTPParamType.SUBJECT));
 
 			// conteúdo HTML do e-mail (pronto para envio)
 			this.htEmail.setHtmlMsg(content);
 
-			String addressReplyTo = params.get(SMTPParamType.REPLY_TO);
+			String addressReplyTo = (String) params.get(SMTPParamType.REPLY_TO);
 
 			// caso existe uma caixa de resposta
 			if (StringUtils.isNotEmpty(addressReplyTo)) {
@@ -70,10 +72,10 @@ public class SMTPEmailSender implements ISMTPSender {
 			}
 
 			// caso exista a necessidade de autenticação
-			String user = params.get(SMTPParamType.USER);
+			String user = (String) params.get(SMTPParamType.USER);
 
 			if (StringUtils.isNotEmpty(addressReplyTo)) {
-				this.htEmail.setAuthentication(user, params.get(SMTPParamType.PASSWORD));
+				this.htEmail.setAuthentication(user, (String) params.get(SMTPParamType.PASSWORD));
 			}
 
 			return this;

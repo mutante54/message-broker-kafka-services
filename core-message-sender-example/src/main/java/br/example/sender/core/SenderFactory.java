@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import br.example.sender.core.enums.MessageType;
 import br.example.sender.core.smtp.impl.SMTPEmailSender;
-import br.example.sender.core.smtp.impl.TextMessageSender;
+import br.example.sender.core.text.impl.TextMessageSender;
 
 /**
  * Factory para a construção de mecanismo de envio de mensagem

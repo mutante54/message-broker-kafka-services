@@ -30,12 +30,8 @@ public interface ISender<P extends Serializable, R> {
 	 * 
 	 * @param params  {@link HashMap} com os parâmetros do envio (chave-valor)
 	 * @param content Conteúdo da mensagem
-	 * @return a própria instância de {@link ISender} já configurada e pronta para
-	 *         envio
+	 * @return a própria instância de {@link ISender} já configurada e pronta para envio
 	 * @throws SendMessageException
 	 */
-	default ISender<?, ?> build(HashMap<Enum<?>, Object> params, String content) throws SendMessageException {
-		return this;
-	}
-
+	ISender<?, ?> build(HashMap<Enum<?>, Object> params, String content) throws SendMessageException;
 }
