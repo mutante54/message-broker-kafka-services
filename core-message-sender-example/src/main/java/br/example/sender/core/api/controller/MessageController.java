@@ -21,12 +21,16 @@ public class MessageController {
 	private MessageConsumerService mConsumerService;
 
 	@RequestMapping(value = "/{id}/consume", method = RequestMethod.POST, consumes = "application/json")
-	public void consumerMessage(@RequestHeader(name = "API_KEY", required = true) String apiKey,@PathVariable("id") long mId, @RequestBody MessageVO message) throws MessageNotFoundException {
-		
+	public void consumerMessage(@RequestHeader(name = "API_KEY", required = true) String apiKey, @PathVariable("id") long mId, @RequestBody MessageVO message) throws MessageNotFoundException {
+
 		if (StringUtils.isEmpty(apiKey)) {
 			throw new IllegalArgumentException("API_KEY não informada");
 		} else {
 			// TODO validar autenticidade da API_KEY (cruzar com a base de dados)
+		}
+
+		if (message.getId() != mId) {
+			throw new IllegalArgumentException("Requisição inválida: objeto informado é inválido");
 		}
 
 		this.mConsumerService.execute(message);

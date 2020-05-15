@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import br.example.data.model.Message;
 import br.example.data.repository.MessageRepository;
 import br.example.enums.MessageStatusType;
@@ -52,7 +50,7 @@ public class ProducerService {
 
 			m.setContent(messageVO.getContent());
 			m.setType(MessageType.HTML);
-			m.setStatus(status);			
+			m.setStatus(status);
 			m.setConsumerGroup(messageVO.getConsumerGroup());
 
 			// TODO apenas para testes
@@ -62,8 +60,7 @@ public class ProducerService {
 				m.setPhost(e.getMessage());
 			}
 
-			ObjectMapper mapper = new ObjectMapper();
-			m.setParams(mapper.writeValueAsString(messageVO.getParams()));
+			m.setParams(messageVO.getParams());
 
 			this.messageRepository.save(m);
 
